@@ -26,7 +26,7 @@
         <a href="password.html" style="color: rgb(24, 18, 18); text-decoration: none; margin: 0 15px;">Password Generator</a>
     </nav>
 <style> 
-// make page purple and look like vrchat
+/* make page purple and look like vrchat */
 body {
     background-color: #5c4d9f;
     color: white;
@@ -102,11 +102,11 @@ body {
         historyList.innerHTML = ''; // Clear the list
     }
     // Add a new username to the history list
-    const listItem = document.createElement("li");
-    listItem.textContent = username;
-    historyList.appendChild(listItem);
+        const listItem1 = document.createElement("li");
+        listItem1.textContent = username;
+        historyList.appendChild(listItem1);
     // Add click event to copy username to clipboard
-    listItem.addEventListener("click", () => {
+    listItem1.addEventListener("click", () => {
         navigator.clipboard.writeText(username).then(() => {
             alert(`Copied "${username}" to clipboard!`);
         }).catch(err => {
