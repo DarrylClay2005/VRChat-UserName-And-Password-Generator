@@ -8,14 +8,22 @@
     <script src="script.js" defer></script>
 </head>
 <body>
+    <style>
+        body {
+            background-image: url('4857889-3276183718.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+    </style>
     <meta name="description" content="Generate random usernames and passwords for VRChat.">
     <meta name="keywords" content="VRChat, username generator, password generator, random names">
     <meta name="author" content="Your Name">
     <meta name="theme-color" content="#5c4d9f">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <nav style="text-align: center; margin-bottom: 20px;">
-        <a href="index.html" style="color: white; text-decoration: none; margin: 0 15px;">Home</a>
-        <a href="password.html" style="color: white; text-decoration: none; margin: 0 15px;">Password Generator</a>
+        
+        <a href="password.html" style="color: rgb(24, 18, 18); text-decoration: none; margin: 0 15px;">Password Generator</a>
     </nav>
 <style> 
 // make page purple and look like vrchat
@@ -25,6 +33,7 @@ body {
     font-family: 'Arial', sans-serif;
     text-align: center;
     padding: 20px;
+    color: rgb(155, 40, 40);
 }
 </style>
 <h1 style="text-align: center;">VRChat Username Generator</h1>
@@ -63,7 +72,6 @@ body {
         alert(`Copied "${username}" to clipboard!`);
         }).catch(err => {
         console.error('Failed to copy text: ', err);
-        });
     });
     // Generate a new username after copying
     const newRandomAdjective = adjectives[Math.floor(Math.random() * adjectives.length)];
@@ -116,6 +124,21 @@ body {
     if (historyList.children.length > 5) {
         historyList.removeChild(historyList.firstChild);
     }
+// set background music to VRChat Midnight Rooftop Song Suisai - Calm down.mp3
+    const audio = new Audio('VRChat Midnight Rooftop Song Suisai - Calm down.mp3');
+    audio.loop = true;
+    audio.play();
+    // Set the volume to 0.5
+    audio.volume = 0.5;
+    // Pause the music when the user clicks the button again
+    document.getElementById("generateUsername").addEventListener("click", () => {
+        if (audio.paused) {
+            audio.play();
+        } else {
+            audio.pause();
+        }
+    });
+});
 </script>
 </body>
 </html>
