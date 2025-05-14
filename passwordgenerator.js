@@ -1,36 +1,45 @@
-// Select the button and output container
-const button = document.getElementById('generatePasswords');
-const output = document.getElementById('passwordOutput');
+// passwordgenerator.js
 
-// Function to generate a random password
-function generatePassword(length = 12) {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
-    let password = '';
-    for (let i = 0; i < length; i++) {
-        password += chars.charAt(Math.floor(Math.random() * chars.length));
+document.addEventListener("DOMContentLoaded", () => {
+    const generateButton = document.createElement("button");
+    generateButton.textContent = "Generate Passwords";
+    generateButton.style.display = "block";
+    generateButton.style.margin = "20px auto";
+    document.body.appendChild(generateButton);
+
+    const passwordList = document.createElement("ul");
+    passwordList.style.listStyleType = "none";
+    passwordList.style.textAlign = "center";
+    document.body.appendChild(passwordList);
+
+    generateButton.addEventListener("click", () => {
+        passwordList.innerHTML = ""; // Clear previous passwords
+        for (let i = 0; i < 5; i++) {
+            const password = generatePassword(12); // Generate a 12-character password
+            const listItem = document.createElement("li");
+            listItem.textContent = password;
+            listItem.style.cursor = "pointer";
+            listItem.title = "Click to copy";
+            listItem.addEventListener("click", () => {
+                navigator.clipboard.writeText(password).then(() => {
+                    alert("Password copied to clipboard!");
+                    const newPassword = generatePassword(12); // Generate a new password
+                    listItem.textContent = newPassword; // Replace the copied password
+                }).catch(err => {
+                    console.error("Failed to copy password: ", err);
+                });
+            });
+            passwordList.appendChild(listItem);
+        }
+    });
+
+    function generatePassword(length) {
+        const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
+        let password = "";
+        for (let i = 0; i < length; i++) {
+            const randomIndex = Math.floor(Math.random() * chars.length);
+            password += chars[randomIndex];
+        }
+        return password;
     }
-    return password;
-}
-
-// Function to generate 5 unique passwords
-function generatePasswords() {
-    const passwords = new Set();
-    while (passwords.size < 5) {
-        passwords.add(generatePassword());
-    }
-    output.innerHTML = Array.from(passwords).map(pwd => `<p>${pwd}</p>`).join('');
-}
-
-// Add event listener to the button
-button.addEventListener('click', () => {
-    generatePasswords();
-    output.style.display = 'block';
-    output.style.backgroundColor = 'white';
-    output.style.color = 'black';
-    output.style.textAlign = 'center';
-    output.style.padding = '20px';
-    output.style.margin = '20px auto';
-    output.style.width = '50%';
-    output.style.borderRadius = '10px';
-    output.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)';
 });
