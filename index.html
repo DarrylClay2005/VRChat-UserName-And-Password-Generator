@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VRChat Username and Password Generator</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <meta name="description" content="Generate random usernames and passwords for VRChat.">
+    <meta name="keywords" content="VRChat, username generator, password generator, random names">
+    <meta name="author" content="Your Name">
+    <meta name="theme-color" content="#5c4d9f">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <nav style="text-align: center; margin-bottom: 20px;">
+        <a href="index.html" style="color: white; text-decoration: none; margin: 0 15px;">Home</a>
+        <a href="password.html" style="color: white; text-decoration: none; margin: 0 15px;">Password Generator</a>
+    </nav>
+<style> 
+// make page purple and look like vrchat
+body {
+    background-color: #5c4d9f;
+    color: white;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    padding: 20px;
+}
+</style>
+<h1 style="text-align: center;">VRChat Username Generator</h1>
+<p style="text-align: center;">Click the button below to generate a random username:</p>
+<div style="text-align: center;">
+    <button id="generateUsername">Generate Username</button>
+</div>
+<p id="usernameDisplay"></p>
+<ul id="usernameHistory"></ul>
+
+<script>
+    const adjectives = ["Cool", "Fast", "Happy", "Mighty", "Brave", "Silly", "Smart", "Funky"];
+    const nouns = ["Panda", "Tiger", "Eagle", "Wizard", "Ninja", "Robot", "Unicorn", "Dragon"];
+
+    document.getElementById("generateUsername").addEventListener("click", () => {
+        const randomAdjective = adjectives[Math.floor(Math.random() * adjectives.length)];
+        const randomNoun = nouns[Math.floor(Math.random() * nouns.length)];
+        const randomNumber = Math.floor(Math.random() * 1000);
+        const username = `${randomAdjective}${randomNoun}${randomNumber}`;
+        
+        // Display the current username
+        document.getElementById("usernameDisplay").textContent = `Your username: ${username}`;
+        // Center align the username display
+        document.getElementById("usernameDisplay").style.textAlign = "center";
+
+        // Center align the username history list
+        document.getElementById("usernameHistory").style.textAlign = "center";
+        // Add the username to the history list
+        const historyList = document.getElementById("usernameHistory");
+        const listItem = document.createElement("li");
+        listItem.textContent = username;
+        historyList.appendChild(listItem);
+    // Add click event to copy username to clipboard
+    listItem.addEventListener("click", () => {
+        navigator.clipboard.writeText(username).then(() => {
+        alert(`Copied "${username}" to clipboard!`);
+        }).catch(err => {
+        console.error('Failed to copy text: ', err);
+        });
+    });
+    // Generate a new username after copying
+    const newRandomAdjective = adjectives[Math.floor(Math.random() * adjectives.length)];
+    const newRandomNoun = nouns[Math.floor(Math.random() * nouns.length)];
+    const newRandomNumber = Math.floor(Math.random() * 1000);
+    const newUsername = `${newRandomAdjective}${newRandomNoun}${newRandomNumber}`;
+    
+    // Update the current username display
+    document.getElementById("usernameDisplay").textContent = `Your username: ${newUsername}`;
+    
+    // Add the new username to the history list
+    const newListItem = document.createElement("li");
+    newListItem.textContent = newUsername;
+    historyList.appendChild(newListItem);
+    
+    // Add click event to copy the new username to clipboard
+    newListItem.addEventListener("click", () => {
+        navigator.clipboard.writeText(newUsername).then(() => {
+        alert(`Copied "${newUsername}" to clipboard!`);
+        }).catch(err => {
+        console.error('Failed to copy text: ', err);
+        });
+    });
+    });
+
+    // Limit the history list to a maximum of 5 usernames
+    if (historyList.children.length > 5) {
+        historyList.innerHTML = ''; // Clear the list
+    }
+    // Add a new username to the history list
+    const listItem = document.createElement("li");
+    listItem.textContent = username;
+    historyList.appendChild(listItem);
+    // Add click event to copy username to clipboard
+    listItem.addEventListener("click", () => {
+        navigator.clipboard.writeText(username).then(() => {
+            alert(`Copied "${username}" to clipboard!`);
+        }).catch(err => {
+            console.error('Failed to copy text: ', err);
+        });
+    });
+    // Generate a new username after copying
+    const newRandomAdjective = adjectives[Math.floor(Math.random() * adjectives.length)];
+    const newRandomNoun = nouns[Math.floor(Math.random() * nouns.length)];
+    const newRandomNumber = Math.floor(Math.random() * 1000);
+    const newUsername = `${newRandomAdjective}${newRandomNoun}${newRandomNumber}`;
+    // Update the current username display
+    document.getElementById("usernameDisplay").textContent = `Your username: ${newUsername}`;
+    // Add the new username to the history list
+    if (historyList.children.length > 5) {
+        historyList.removeChild(historyList.firstChild);
+    }
+</script>
+</body>
+</html>
